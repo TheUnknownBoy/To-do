@@ -7,7 +7,12 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static('public'));
 
+// Index route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
 
 dotenv.config({
     path:'./config/config.env'
@@ -24,7 +29,7 @@ app.get('/todo', (req,res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 
 app.listen(PORT,
